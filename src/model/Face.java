@@ -1,12 +1,4 @@
 package model;
-/**
- * Author: Paarth Bhasin
- * Purpose: Assignment 2 FIT3088
- * Tutor: Han Pham
- * Lecturer: Amr Hassan
- * Date: 18/10/2016
- * 
- */
 
 /**
  * DESCRIPTION: 
