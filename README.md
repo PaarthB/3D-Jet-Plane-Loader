@@ -7,3 +7,4 @@ It loads data in Tecplot ASCII format and renders it to be displayed. The applic
 
 # Usage:
 Run the Renderer.java file, keeping the csv file and .dat file in the project directory.
+Requires the standard JOGL Distribution.
