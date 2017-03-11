@@ -1,4 +1,7 @@
 # OpenGL: 3D Jet Plane Loader
+
+![Image](/Screenshot1.bmp?raw=true "3D Jet Plane Image")
+
 - Loads data from a .dat file which represents a 3D Jet Model. 
 
 - This application follows the MVC Architectural Pattern as can be observed by seeing the model, view and controller packages. That's why it also possesses a separate GUI for interaction with the 3D Model.
