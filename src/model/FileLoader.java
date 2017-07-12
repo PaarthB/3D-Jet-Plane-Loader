@@ -25,10 +25,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.*;
 
-import view.GUI;
-import controller.Renderer;
-
-
 @SuppressWarnings("unused")
 public class FileLoader {
 	
@@ -43,9 +39,9 @@ public class FileLoader {
 	public static List<Object> Color = new ArrayList<Object>();
 	static List<Double> Max = new ArrayList<Double>();
 	static List<Double> Min = new ArrayList<Double>();
-	static GUI gui = new GUI();
-	public static JRadioButtonMenuItem b = gui.button1;
-	static JRadioButtonMenuItem c = gui.button2;
+
+	public static JRadioButtonMenuItem b = NULL;
+	static JRadioButtonMenuItem c = NULL;
 	
 	@SuppressWarnings({ })
 	public static void colorMap() throws IOException{
