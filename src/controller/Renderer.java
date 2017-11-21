@@ -60,11 +60,11 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	String rotation = "Deactivate";
 	String translation = "";
 	
-	//final static profile = GLProfile.get( GLProfile.GL2 );
-    static GLCapabilities capabilities = new GLCapabilities( GLProfile.get(GLProfile.GL2) );
+    	//final static profile = GLProfile.get( GLProfile.GL2 );
+    	static GLCapabilities capabilities = new GLCapabilities( GLProfile.get(GLProfile.GL2) );
       
-    // The canvas
-    final static GLCanvas glcanvas = new GLCanvas( capabilities );
+    	// The canvas
+    	final static GLCanvas glcanvas = new GLCanvas( capabilities );
 
 	public Renderer(){
 		this.addGLEventListener(this);
@@ -103,7 +103,7 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	    gl.glShadeModel(GL_SMOOTH); // blends colors nicely, and smoothes out lighting
 	    //Adding mouse controls to the canvas.
 	    ((Component) drawable).addMouseListener(this);
-        ((Component) drawable).addMouseMotionListener(this);
+            ((Component) drawable).addMouseMotionListener(this);
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
@@ -138,20 +138,11 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	    else {
 	    	display = button1.getText();	  
 	    }
-	    switch (display) {
-			case "Wireframe": 
-				this.init(drawable);
-				break;
-			case "Fill": 
-				this.init(drawable);
-				break;
-			default:
-				this.init(drawable);
-				break;
-	    }
+		
+	    this.init(drawable); // Change the fill type here, i.e. Wireframe or Fill.
 	    
 	    reshape(drawable, x, y, glcanvas.getWidth(), glcanvas.getHeight());
-		render3D(drawable, button2);
+	    render3D(drawable, button2);
 		
 	}
 	
@@ -163,18 +154,18 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	}
 	public void mouseDragged(MouseEvent e) {	
 		//Calcuating the angles based on displacement of cursor position.
-        float x = e.getX();
-        float y = e.getY();
-        float thetaY = 360.0f * ( (float)(x-prevX)/(float) glcanvas.getWidth());
-        float thetaX = 360.0f * ( (float)(prevY-y)/(float) glcanvas.getHeight());
-        float thetaZ = (float) Math.atan2(x - prevX, y - prevY);
+		float x = e.getX();
+		float y = e.getY();
+		float thetaY = 360.0f * ( (float)(x-prevX)/(float) glcanvas.getWidth());
+		float thetaX = 360.0f * ( (float)(prevY-y)/(float) glcanvas.getHeight());
+		float thetaZ = (float) Math.atan2(x - prevX, y - prevY);
+
+		angleX += thetaX;
+		angleY += thetaY;
+		angleZ += thetaZ;
         
-        angleX += thetaX;
-        angleY += thetaY;
-        angleZ += thetaZ;
-        
-        //Printing the X, Y, Z co-ordinates during rotation.
-        System.out.println(angleX + " : " + angleY + " : " + angleZ);
+		//Printing the X, Y, Z co-ordinates during rotation.
+		System.out.println(angleX + " : " + angleY + " : " + angleZ);
         
 	}
 	public void mouseMoved( MouseEvent e) {
@@ -200,7 +191,7 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	@SuppressWarnings("static-access")
 	public void render3D(GLAutoDrawable drawable, JRadioButtonMenuItem button1) {
 		
-		  GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
+	      GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
 	      gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffers
 	      gl.glLoadIdentity();  // reset the model-view matrix
 
@@ -261,33 +252,33 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	    //gl.glScalef(5.0f, 5.0f, 5.0f);
 	    //Clearing all previous data from inside the FileLoader() instance Image to begin
 	    //rendering new data.
-	    Image.Faces.clear();
-	    Image.Vertex.clear();
-	    Image.Color.clear();
-	    Image.color_var = "";
-	    Image.max = 0;
-	    Image.min = 100;
-	    Image.b = button1;
-	    Image.run();
-		for (int i = 0; i < Image.Faces.size(); i++){
-			//Get a face.
-			Face face = (Face) Image.Faces.get(i);
-			gl.glBegin(GL_POLYGON); // draw using Quadrilaterals
-				for (int k = 0; k < face.vertices.size(); k++ ){
-					//Get a vertex of the face
-					Vertex v = (Vertex) face.vertices.get(k);
-					float r = v.colour.get(0);
-					float g = v.colour.get(1);
-					float b = v.colour.get(2);
-					gl.glVertex3f(v.vertex.get(0), v.vertex.get(1), v.vertex.get(2));
-					gl.glColor3f(r, g, b);
-				}
+	      Image.Faces.clear();
+	      Image.Vertex.clear();
+	      Image.Color.clear();
+	      Image.color_var = "";
+	      Image.max = 0;
+	      Image.min = 100;
+	      Image.b = button1;
+	      Image.run();
+	      for (int i = 0; i < Image.Faces.size(); i++){
+		   //Get a face.
+	           Face face = (Face) Image.Faces.get(i);
+		   gl.glBegin(GL_POLYGON); // draw using Quadrilaterals
+		   for (int k = 0; k < face.vertices.size(); k++ ){
+		   	 //Get a vertex of the face
+			 Vertex v = (Vertex) face.vertices.get(k);
+			 float r = v.colour.get(0);
+			 float g = v.colour.get(1);
+			 float b = v.colour.get(2);
+			 gl.glVertex3f(v.vertex.get(0), v.vertex.get(1), v.vertex.get(2));
+			 gl.glColor3f(r, g, b);
+		   }
 				
-			gl.glEnd();
-			rtri+=0.2f;
-		}
+			 gl.glEnd();
+			 rtri+=0.2f;
+	       }
 		
-	}
+	 }
 	@Override
 	public void dispose(GLAutoDrawable arg0) {
 		// TODO Auto-generated method stub
@@ -295,7 +286,7 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-		  GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
+	      GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
 	      //System.out.println(width);
 	      //System.out.println(height);
 	      if (height == 0) height = 1;   // prevent divide by zero
@@ -340,16 +331,16 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	}
 	
 	public static void main(String[] args){
-		  //Creating a new instance of Renderer().
+	      //Creating a new instance of Renderer().
 	      Renderer renderer = new Renderer();
 	      //Adding it to the canvas as an Event Listener.
 	      glcanvas.addGLEventListener( renderer );
 	      //Setting the canvas size.
 	      glcanvas.setSize( 900, 600 );
 	      //Getting an instance of the GUI from view package.
-		  GUI gui = new GUI();
-		  //Running the GUI on the canvas to attach GUI to the canvas.
-		  gui.run(glcanvas);
+	      GUI gui = new GUI();
+	      //Running the GUI on the canvas to attach GUI to the canvas.
+	      gui.run(glcanvas);
 	      final FPSAnimator animator = new FPSAnimator(glcanvas, 300,true);
 	      animator.start();
 	}
