@@ -71,7 +71,7 @@ public class Renderer extends GLCanvas implements GLEventListener, MouseListener
 	}
 	@SuppressWarnings("static-access")
 	public void init(GLAutoDrawable drawable){
-		GL2 gl = drawable.getGL().getGL2();      // get the OpenGL graphics context
+	    GL2 gl = drawable.getGL().getGL2();      // get the OpenGL graphics context
 	    glu = new GLU();                         // get GL Utilities
 	    gl.glClearColor(1.0f, 1.0f, 1.0f, 0.0f); // set background (clear) color
 	    gl.glClearDepth(1.0f);      // set clear depth value to farthest
